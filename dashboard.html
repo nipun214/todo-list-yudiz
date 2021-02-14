@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            margin: 0 auto;
+        }
+        #clock
+        {
+            margin: 15px;
+            text-align: right;
+            font-size: 45px;
+            display: inline;
+        }
+        .sidenav {
+            height: 100%; /* 100% Full-height */
+            width: 0; /* 0 width - change this with JavaScript */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Stay on top */
+            top: 0;
+            left: 0;
+            background-color: #111; /* Black*/
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 60px; /* Place content 60px from the top */
+            transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        }
+
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        font-family: Gotham;
+        color: #818181;
+        display: block;
+        transition: 0.3s
+    }
+
+
+    .sidenav a:hover, .offcanvas a:focus{
+        color: #f1f1f1;
+    }
+
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+
+    #main {
+        transition: margin-left .5s;
+        padding: 20px;
+        display: inline;
+    }
+
+
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+    }
+
+    #temperature
+    {
+        text-align: center;
+        /* display: inline; */
+    }
+    #description
+    {
+        text-align: center;
+        /* display: inline */
+    }
+    #location
+    {
+        text-align: center;
+        /* display: inline; */
+    }
+    #myImg
+    {
+        margin-left: 610px;
+    }
+    @font-face {
+	font-family: 'Roboto-Regular';
+	src: url('../fonts/Roboto-Regular.eot');
+	src: local('☺'), url('../fonts/Roboto-Regular.woff') format('woff'), url('../fonts/Roboto-Regular.ttf') format('truetype'), url('../fonts/Roboto-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../fonts/fontawesome-webfont.eot');
+	src: local('☺'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.ttf') format('truetype'), url('../fonts/fontawesome-webfont.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+/* #FF416C,#FF4B2B */
+body{font-family: 'Roboto-Regular';background: #f5f5f5; background-image: linear-gradient(to right,#FF416C,#FF4B2B);} 
+header .navbar{padding: .5rem 0;}
+header nav.navbar .navbar-brand{color:#fff;}
+section.todo-outer {
+    width: 100%;
+    float: left;
+    padding: 30px 0;
+}
+section.todo-outer h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+.todo-inner {
+    width: 100%;
+    /* float: left; */
+    padding: 40px;
+    box-shadow: 0px 0px 10px #fff;
+    text-align: center;
+    /* margin-left: 450px; */
+    /* background: #fff; */
+    background-image: linear-gradient(to right,#FF416C,#FF4B2B);
+    
+}
+table tr td  {
+    /* background: no-repeat;
+    border: none;
+    /* padding: 0; */
+    cursor: pointer; 
+    /* border-radius: solid 5px; */
+  /* width: 70%; */
+  /* border: solid 1px #eee; */
+  /* padding: 15px 10px; */
+  border-radius: 1px;
+  font-size: 30px;
+  /* text-align: center; */
+}
+.index
+{
+  font-size: 25px;
+}
+button{
+  width: 180px;
+  padding: 15px;
+  margin-left: 70px;
+  background: #fff;
+  color: dodgerblue;
+  border: solid 1px dodgerblue;
+  cursor: pointer;
+  border-radius: 33px;
+  transition: all .38s ease-in-out;
+  font-size: 15px;
+}
+.completed{text-decoration: line-through;}
+input
+{
+  width: 40%;
+  border: solid 1px #eee;
+  padding: 15px 10px;
+  border-radius: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Home</a>
+        <a href="/profile.html">Profile</a>
+        <a href="/password.html">Change Password</a>
+        <a href="/logout.html">Logout</a>
+      </div>
+      
+      <span onclick="openNav()"><img src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png" width="40px" style="padding-top: 40px; padding-left: 40px;"></span>
+      <div id="main">
+      </div>
+      
+    <!--Clock -->
+    <div id ='clock'>
+    </div>
+
+    <!-- temprature -->
+    <h1 id="temperature"></h1>
+    <h2 id="description"></h2>
+    <p id="location"></p>
+
+    <!-- Giphy -->
+    <iframe class="card" id="myImg" class="myImg"> </iframe>
+
+    <!-- to do list -->
+
+    <header class="bg-dark mb-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <!-- <nav class="navbar justify-content-between">
+              <a class="navbar-brand">Todo List</a>
+              <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                  id="searchtextbox" />
+              </form>
+            </nav> -->
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="todo-outer">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-sm-12 col-md-8">
+            <!-- <h1>Welcome in Todo List Application</h1> -->
+            <div class="todo-inner">
+              <div class="form-row">
+                <div class="col-8 mr-sm-2">
+                  <input type="text" class="form-control" placeholder="Enter your task" id="addtaskinput" onclick="add();" />
+                  <input type="hidden" id="saveindex">
+                </div>
+                <br>
+                <br>
+                <button type="button" class="btn btn-success mr-sm-2" id="addtaskbtn" onclick="add();">
+                  Add Task
+                </button>
+                <button type="button" class="btn btn-success mr-sm-2" id="savetaskbtn" onclick="save();" style="display: none;">
+                  Save Task
+                </button>
+                <button type="button" id="deleteallbtn" onclick="deleteall();" class="btn btn-danger">
+                  Delete All
+                </button>
+              </div>
+              <div class="to-do-output">
+                <table class="table table-striped mt-3 mb-0" id="addedtasklist" onclick="complete(event);">
+                  
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="text/javascript">
+        // alert(document.cookie);
+        var user = getCookie("email"); //nipun.parekh@gmail
+        if(document.cookie == null || document.cookie=='')
+        {
+            window.location.replace('/login.html');
+        }
+        setInterval(displayclock,500);
+        function getWeather() {
+            let temperature = document.getElementById("temperature");
+            let description = document.getElementById("description");
+            let location = document.getElementById("location");
+          
+            let api = "https://api.openweathermap.org/data/2.5/weather";
+            let apiKey = "892b7cbaf7a33ea938cd8cbbd8c70262";
+          
+            location.innerHTML = "Locating...";
+          
+            navigator.geolocation.getCurrentPosition(success, error);
+          
+            function success(position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+          
+              let url =
+                api +
+                "?lat=" +
+                latitude +
+                "&lon=" +
+                longitude +
+                "&appid=" +
+                apiKey +
+                "&units=imperial";
+          
+              fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                  let temp = data.main.temp;
+                  temperature.innerHTML = temp + "° F";
+                  location.innerHTML =
+                    data.name + " (" + latitude + "°, " + longitude + "°)";
+                  description.innerHTML = data.weather[0].main;
+                });
+            }
+          
+            function error() {
+              location.innerHTML = "Unable to retrieve your location";
+            }
+          }
+          
+          getWeather();
+          //display clock
+          function displayclock()
+          {
+            var time  = new Date();
+            var hrs = time.getHours();
+            var min = time.getMinutes();
+            var sec = time.getSeconds();
+
+            if(hrs > 12)
+            {
+                hrs = hrs - 12;
+            }
+            if(hrs == 0)
+            {
+                hrs = 12;
+            }
+            document.getElementById('clock').innerHTML = hrs + ':'+ min + ':' + sec;
+          }
+
+        // Nav Bar
+
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "300px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        // giphy
+
+        const gitapi = "c6w8GGPgpN01DNJXaV2CD9FVVRAa9c9K"
+        function getGif() {
+            fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${gitapi}&limit=20`).then(response => response.json())
+            .then(data => {
+                console.log(data)
+                let i = 0
+                setInterval(() => {
+                if (i == 20) {
+                    i = 0
+                }
+                document.getElementById("myImg").src = data.data[i].embed_url;
+                i++;
+            }, 5000);
+        })
+    }
+getGif()
+
+
+    
+        //get cookie
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+          }
+
+          function add()
+          {
+            console.log('hello');
+            var stored1 = localStorage.getItem('all');
+        var storedVal = JSON.parse(stored1);
+        var user = getCookie("email");
+        let addtaskinput = document.getElementById("addtaskinput");
+        let addtaskbtn = document.getElementById("addtaskbtn");
+
+      addtaskbtn.addEventListener("click", function(){
+      console.log("hello");
+      addtaskinputval = addtaskinput.value;
+      if(addtaskinputval==null || addtaskinputval=='')
+      {
+        alert('pl. enter some task name');
+        window.location.replace('/dashboard.html');
+      }
+      else
+      {
+      for (var i = 0; i < storedVal.length; i++)
+      {
+        console.log('inside the maxe')
+        if(user == storedVal[i].email)
+        {
+          stored = new Array
+          f = storedVal[i].todo;
+          todo = {'task_name':addtaskinputval, 'completeStatus':false};
+          f.push(todo);
+          storedVal[i].todo = f;
+          stored=storedVal;
+          localStorage.setItem('all', JSON.stringify(stored));
+          
+        }
+      }
+    showtask();
+    document.getElementById('addtaskbtn').innerHTML='';
+      }
+})
+}
+        showtask();
+//         var stored1 = localStorage.getItem('all');
+//         var storedVal = JSON.parse(stored1);
+//         var user = getCookie("email");
+//         let addtaskinput = document.getElementById("addtaskinput");
+//         let addtaskbtn = document.getElementById("addtaskbtn");
+
+//       addtaskbtn.addEventListener("click", function(){
+//       console.log("hello");
+//       addtaskinputval = addtaskinput.value;
+//       for (var i = 0; i < storedVal.length; i++)
+//       {
+//         console.log('inside the maxe')
+//         if(user == storedVal[i].email)
+//         {
+//           stored = new Array
+//           f = storedVal[i].todo;
+//           todo = {'task_name':addtaskinputval, 'completeStatus':false};
+//           f.push(todo);
+//           storedVal[i].todo = f;
+//           stored=storedVal;
+//           localStorage.setItem('all', JSON.stringify(stored));
+//         }
+//       }
+//     showtask();
+// })
+
+// showtask
+function showtask(){
+  var stored1 = localStorage.getItem('all');
+  var storedVal = JSON.parse(stored1);
+  for (var i = 0; i < storedVal.length; i++)
+            {
+                if(user == storedVal[i].email)
+                { 
+                  let html = '';
+                  let addedtasklist = document.getElementById("addedtasklist");
+                  for(j=0; j<=20;j++)
+                  {
+                    if(storedVal[i].todo[j].completeStatus==true){
+                      taskCompleteValue = `<td class="completed">${storedVal[i].todo[j].task_name}</td>`;
+                      // console.log(taskCompleteValue);
+                    }else{
+                      taskCompleteValue = `<td>${storedVal[i].todo[j].task_name}</td>`;
+                      // console.log(taskCompleteValue);
+                    }
+                    // let html = '';
+                    html += `<br><br><tr>
+                    <th class = index scope="row">${j+1} &nbsp;</th>
+                    ${taskCompleteValue}
+                    <td><button type="button" onclick="edittask(${j})" class="text-primary"><i class="fa fa-edit"></i>Edit</button></td>
+                    <td><button type="button" class="text-success" id=${j}><i class="fa fa-check-square-o"></i>Complete</button></td>
+                    <td><button type="button" onclick="deleteitem(${j})" class="text-danger"><i class="fa fa-trash"></i>Delete</button></td>
+                    </tr>`;
+                    addedtasklist.innerHTML = html; 
+                    
+                  }
+                
+                }
+                
+            }
+}
+
+// edittask
+function edittask(index){
+    let saveindex = document.getElementById("saveindex");
+    let addtaskbtn = document.getElementById("addtaskbtn");
+    let savetaskbtn = document.getElementById("savetaskbtn");
+    saveindex.value = index;
+    let webtask = localStorage.getItem("all");
+    let taskObj = JSON.parse(webtask); 
+    
+    for (var i = 0; i < taskObj.length; i++)
+    {
+      if(user == taskObj[i].email)
+      { 
+        addtaskinput.value = taskObj[i].todo[index].task_name;
+        addtaskbtn.style.display="none";
+        savetaskbtn.style.display="block";
+      }
+    }
+    // addtaskinput.value = taskObj[index]['task_name'];
+    // addtaskbtn.style.display="none";
+    // savetaskbtn.style.display="block";
+}
+
+// savetask
+
+function save()
+{
+  
+  let savetaskbtn = document.getElementById("savetaskbtn");
+  let addtaskbtn = document.getElementById("addtaskbtn");
+    let webtask = localStorage.getItem("all");
+    let taskObj = JSON.parse(webtask); 
+    let saveindex = document.getElementById("saveindex").value;
+    console.log(saveindex);
+    for (var i = 0; i < taskObj.length; i++)
+    {
+      if(user == taskObj[i].email)
+      { 
+        for (value in taskObj[i].todo) {
+          // console.log(value);
+          if(value == saveindex){
+            // console.log(value);
+            taskObj[i].todo[saveindex].task_name = addtaskinput.value;
+          }
+        }
+        savetaskbtn.style.display="none";
+        addtaskbtn.style.display="block";
+        localStorage.setItem("all", JSON.stringify(taskObj));
+        addtaskinput.value='';
+        showtask();
+      }
+    }
+  }
+
+// deleteitem
+function deleteitem(index){
+    let webtask = localStorage.getItem("all");
+    let taskObj = JSON.parse(webtask);
+    for (var i = 0; i < taskObj.length; i++)
+    {
+      if(user == taskObj[i].email)
+      { 
+        taskObj[i].todo.splice(index, 1);
+        localStorage.setItem("all", JSON.stringify(taskObj));
+        window.location.replace('/dashboard.html');
+      }
+    }
+
+    showtask();
+}
+
+
+
+// complete task
+let addedtasklist = document.getElementById("addedtasklist");
+     function complete(e){
+       console.log('function called');
+       // console.log(e);
+        
+        // showtask();
+        let webtask = localStorage.getItem("all");
+        let taskObj = JSON.parse(webtask);
+        
+        let mytarget = e.target;
+        if(mytarget.classList[0] === 'text-success'){
+        let mytargetid = mytarget.getAttribute("id");
+        console.log(mytargetid);
+        // let taskValue = taskObj[mytargetid]['task_name'];
+        
+        mytargetpresibling = mytarget.parentElement.previousElementSibling.previousElementSibling;
+        
+        for (var i = 0; i < taskObj.length; i++)
+        {
+          if(user == taskObj[i].email)
+          { 
+            if(taskObj[i].todo[mytargetid].completeStatus == false)
+            {
+              taskObj[i].todo[mytargetid].completeStatus= true;
+            }
+            else if(taskObj[i].todo[mytargetid].completeStatus== true)
+            {
+              taskObj[i].todo[mytargetid].completeStatus = false;
+            }
+          }
+        }
+        localStorage.setItem("all", JSON.stringify(taskObj));
+        // window.location.replace('/dashboard.html');
+        showtask();     
+       
+    }
+    }
+
+    
+
+// deleteall
+let deleteallbtn = document.getElementById("deleteallbtn");
+function deleteall(){
+    let savetaskbtn = document.getElementById("savetaskbtn");
+    let addtaskbtn = document.getElementById("addtaskbtn");
+    let webtask = localStorage.getItem("all");
+    let taskObj = JSON.parse(webtask);
+
+    for (var i = 0; i < taskObj.length; i++)
+    {
+      if(user == taskObj[i].email)
+      {
+        if(webtask == null){
+          taskObj[i].todo = [];
+        }
+        else{
+          taskObj = JSON.parse(webtask);
+          taskObj[i].todo = [];
+        }
+      }
+    }
+  
+    savetaskbtn.style.display="none";
+    addtaskbtn.style.display="block";
+    localStorage.setItem("all", JSON.stringify(taskObj));
+    window.location.replace('/dashboard.html');
+    showtask();
+    
+
+  }
+
+
+  </script>
+</body>
+</html>

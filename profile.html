@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body
+        {
+            background-image: linear-gradient(to right,#ef32d9,#89fffd);
+        }
+        
+        .sidenav {
+            height: 100%; /* 100% Full-height */
+            width: 0; /* 0 width - change this with JavaScript */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Stay on top */
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 60px; /* Place content 60px from the top */
+            transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        }
+
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        font-family: Gotham;
+        color: #818181;
+        display: block;
+        transition: 0.3s
+    }
+
+
+    .sidenav a:hover, .offcanvas a:focus{
+        color: #f1f1f1;
+    }
+
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+
+    #main {
+        transition: margin-left .5s;
+        padding: 20px;
+        display: inline;
+    }
+
+
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+    }
+    button
+    {
+        width: 200px;
+        padding: 15px;
+        margin-left: 70px;
+        background: #fff;
+        color: dodgerblue;
+        border: solid 1px dodgerblue;
+        cursor: pointer;
+        border-radius: 33px;
+        transition: all .38s ease-in-out;
+    }
+    input
+    {
+        width: 70%;
+        border: solid 1px #eee;
+        padding: 15px 10px;
+        border-radius: 10px;
+    }
+    .contianer
+        {
+            margin: 100px 500px;
+            
+        }
+        .form-group
+        {
+            margin: 10px;
+            /* padding: 200px; */
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/dashboard.html">Home</a>
+        <a href="#">Profile</a>
+        <a href="/password.html">Change Password</a>
+        <a href="/logout.html">Logout</a>
+      </div>
+      <span onclick="openNav()"><img src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png" width="40px" style="padding-top: 40px; padding-left: 40px;"></span>
+      <div id="main">
+      </div>
+      <div class="contianer">
+        <h1>Update your Profile</h1>
+        <form role="form">
+            <div class="from-group">
+                <input type="text" name="fname" id="fname" placeholder="Fullname" required>
+            </div>
+            <br>
+            <div class="from-group">
+                <input type="number" name="mobile" id="mobile" placeholder="Mobile number" required>
+            </div>
+            <br>
+            <!-- <div class="from-group">
+                <input type="date" name="dob" id="dob" placeholder="birth date" required>
+            </div>
+            <br> -->
+            <div class="from-group">
+                <input type="email" name="email" id="email" placeholder="Email Address" required>
+            </div>
+            <!-- <br>
+            <div class="from-group">
+                <input type="password" name="pwd" id="pwd" placeholder="password" required onblur="check();">
+            </div> -->
+            <br>
+            <div class="from-group">
+                <button type="button" id="a" onclick="update();">Update</button>
+            </div>
+        </form>
+      
+    
+    <script type="text/javascript">
+        //   var user = getCookie("email"); //nipun.parekh@gmail
+        if(document.cookie == null || document.cookie=='')
+        {
+            window.location.replace('/login.html');
+        }
+            var user = getCookie("email"); //nipun.parekh@gmail
+            console.log(user);
+        // Set value
+            var stored1 = localStorage.getItem('all');
+            var storedVal = JSON.parse(stored1);
+            console.log(storedVal);
+            for (var i = 0; i < storedVal.length; i++)
+            {
+                if(user == storedVal[i].email)
+                {
+                    
+                    var email1 = storedVal[i].email;
+                    var mobile = storedVal[i].mobile;
+                    var username = storedVal[i].name;
+                    // var birthdate = storedVal[i].birthday;
+                    console.log(email1);
+                    console.log(mobile);
+                    console.log(username);
+                    // console.log(birthdate);
+                    document.getElementById("email").value=email1;
+                    document.getElementById("fname").value=username ;
+                    document.getElementById("mobile").value =mobile;
+
+                }
+            }
+            // }
+            // for(var i = 0; i<storedVal.length;i++)
+            // {
+            //     email =email1.value;
+            //     username = username.value;
+            // }
+
+
+        //get cookie
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+
+        //NAV
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "300px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        // Update
+
+        function update()
+        {
+            for (var i = 0; i < storedVal.length; i++)
+            {
+                if(user == storedVal[i].email)
+                {
+
+                    console.log(storedVal);
+                    stored = new Array
+                    var name = document.getElementById('fname').value;
+                    var mob = document.getElementById('mobile').value;
+                    var em = document.getElementById('email').value;
+                    storedVal[i].name=name;
+                    storedVal[i].email=em;
+                    storedVal[i].mobile=mob;
+                    stored=storedVal;
+                    localStorage.setItem('all', JSON.stringify(stored));
+                    break;
+
+                }
+                
+                // var mail = document.getElementById('email').value;
+                // var mob = document.getElementById('mobile').value;
+                    // storedVal[i].email=mail;
+                    // storedVal[i].mobile=mobile.value;
+                    // storedVal[i].name=name;
+                    // console.log(storedVal[i].name);
+                    // var birthdate = storedVal[i].birthday;
+                    // console.log(email1);
+                    // console.log(mobile);
+                    // console.log(name, mail, mob);
+                    // console.log(birthdate);
+                    // localStorage.setItem('email',JSON.stringify(email));
+                    // localStorage.setItem('mobile',JSON.stringify(mobile));
+                    // localStorage.setItem('',JSON.stringify(name.value));
+            }
+        }
+
+    </script>
+</body>
+</html>

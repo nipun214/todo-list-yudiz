@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        *{box-sizing: border-box;}
+        html,body{margin: 0;padding: 0; background-image: linear-gradient(to right, #00c6ff,#0072ff);}
+        .contianer
+        {
+            margin: 100px 500px;
+            
+        }
+        .form-group
+        {
+            margin: 10px;
+        }
+        input
+        {
+            width: 70%;
+            border: solid 1px #eee;
+            padding: 15px 10px;
+            border-radius: 10px;
+        }
+        button
+        {
+            width: 200px;
+            padding: 15px;
+            margin-left: 70px;
+            background: #fff;
+            color: dodgerblue;
+            border: solid 1px dodgerblue;
+            cursor: pointer;
+            border-radius: 33px;
+            transition: all .38s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    Don't have a account Click below button :|(
+    <div class="from-group">
+        <button type="submit" onclick="pagenext();" >Register</button>
+    </div>
+    <div class="contianer">
+        <h1>Login Form</h1>
+        <form role="form">
+            <div class="from-group">
+                <input type="text" name="email" id="email" placeholder="Email/ phone number" required>
+
+            </div>
+            <br>
+            <div class="from-group">
+                <input type="password" name="pwd" id="pwd" placeholder="password" required>
+            </div>
+            <br>
+            <div class="from-group">
+                <button type="button" onClick="check()">Login In</button>
+            </div>
+        </form>
+       
+    </div> 
+    <script type="text/javascript">
+        function check()
+        {
+            // var storedName = localStorage.getItem('email');
+            // var storedPw = localStorage.getItem('password');
+            // var storedmobile = localStorage.getItem('mobile');
+
+            // var Email = document.getElementById('email').value;
+            // var Epwd = document.getElementById('pwd').value;
+            // if(Email == storedmobile || Email == storedName && Epwd == storedPw)
+            // {
+            //     console.log("hello");
+            //     alert('You are logged in!!!');
+            //     // Cookies.set('mail',Email);
+            //     window.location.href = "http://127.0.0.1:5500/dashboard.html";
+            // }
+            // console.log('In else');
+            // // else
+            // // {
+            // //     alert('Login failed');   
+            // // }
+
+            // function check() {
+
+            var stored1 = localStorage.getItem('all');
+            var storedVal = JSON.parse(stored1);
+            console.log(storedVal);
+
+            var user_Mobile_Email = document.getElementById('email');
+            var user_Password = document.getElementById('pwd');
+
+            for (var i = 0; i < storedVal.length; i++) {
+            console.log(storedVal[i].email, storedVal[i].password);
+
+            if ((user_Mobile_Email.value == storedVal[i].email || user_Mobile_Email.value == storedVal[i].mobile) && user_Password.value == storedVal[i].password) {
+                document.cookie = `email=${storedVal[i].email}`;
+                window.location.replace('http://127.0.0.1:5500/dashboard.html');
+                break;
+            }
+            else if (i == (storedVal.length - 1)) {
+            console.log(i);
+            alert('Error on login');
+            }
+            // }
+            }
+    }
+        
+        function pagenext()
+        {
+            window.location.href = "http://127.0.0.1:5500/signup.html";
+        }
+    </script>  
+</body>
+</html>
