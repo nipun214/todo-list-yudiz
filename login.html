@@ -96,7 +96,7 @@
 
             if ((user_Mobile_Email.value == storedVal[i].email || user_Mobile_Email.value == storedVal[i].mobile) && user_Password.value == storedVal[i].password) {
                 document.cookie = `email=${storedVal[i].email}`;
-                window.location.replace('http://127.0.0.1:5500/dashboard.html');
+                window.location.replace('/dashboard.html');
                 break;
             }
             else if (i == (storedVal.length - 1)) {
@@ -109,7 +109,7 @@
         
         function pagenext()
         {
-            window.location.href = "http://127.0.0.1:5500/signup.html";
+            window.location.href = "/signup.html";
         }
     </script>  
 </body>

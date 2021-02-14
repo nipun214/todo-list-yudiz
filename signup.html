@@ -126,12 +126,12 @@
                     if(email.value == storedVal[i].email)
                     {
                         alert('Email is already registered');
-                        window.location.href = "http://127.0.0.1:5500/signup.html";
+                        window.location.href = "/signup.html";
                     }
                     else if(mobile.value == storedVal[i].mobile)
                     {
                         alert('Mobile no. is already registered');
-                        window.location.href = "http://127.0.0.1:5500/signup.html";
+                        window.location.href = "/signup.html";
                     }
                     else
                     {
@@ -142,7 +142,7 @@
                         items.push({ 'name': fname.value, 'email': email.value, 'mobile': mobile.value, 'gender': gender.value, 'birthday': dob.value, 'password': pswd.value,'todo':todo });
                         localStorage.setItem('all', JSON.stringify(items));
                         alert('Registered sucess')
-                        window.location.href = "http://127.0.0.1:5500/login.html";
+                        window.location.href = "/login.html";
                     }
                 }
             }
@@ -155,12 +155,12 @@
                 items.push({ 'name': fname.value, 'email': email.value, 'mobile': mobile.value, 'gender': gender.value, 'birthday': dob.value, 'password': pswd.value,'todo':todo });
                 localStorage.setItem('all', JSON.stringify(items));
                 alert('Registered sucess')
-                window.location.href = "http://127.0.0.1:5500/login.html";
+                window.location.href = "/login.html";
             }
         }
         function pagenext()
         {
-            window.location.href = "http://127.0.0.1:5500/login.html";
+            window.location.href = "/login.html";
         }
         // const signUp= e =>{
         //     let formdata = 
